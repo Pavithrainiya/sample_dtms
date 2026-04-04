@@ -125,7 +125,10 @@ class SubmissionViewSet(viewsets.ModelViewSet):
         return Submission.objects.filter(user=self.request.user).order_by('-submitted_at')
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user, status='Submitted')
+
+    def perform_update(self, serializer):
+        serializer.save(status='Submitted')
 
     @action(detail=True, methods=['put'], permission_classes=[IsAdminOrReadOnly])
     def review(self, request, pk=None):
