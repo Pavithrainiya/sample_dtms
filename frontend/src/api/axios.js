@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: 'https://sample-dtms-backend.onrender.com/api/',
 });
 
 api.interceptors.request.use(
@@ -29,7 +29,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem('refresh_token');
-        const res = await axios.post('http://localhost:8000/api/auth/login/refresh/', {
+        const res = await axios.post(`${api.defaults.baseURL}auth/login/refresh/`, {
           refresh: refreshToken
         });
         localStorage.setItem('access_token', res.data.access);
