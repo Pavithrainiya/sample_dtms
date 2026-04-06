@@ -26,6 +26,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class UserSerializer(serializers.ModelSerializer):
+    approved_count = serializers.IntegerField(required=False, read_only=True)
+    rejected_count = serializers.IntegerField(required=False, read_only=True)
+    pending_count = serializers.IntegerField(required=False, read_only=True)
+
     class Meta:
         model = User
-        fields = ('id', 'email', 'name', 'role', 'bio', 'phone_number', 'country', 'skills', 'experience', 'resume')
+        fields = ('id', 'email', 'name', 'role', 'phone_number', 'country', 'date_joined', 'approved_count', 'rejected_count', 'pending_count')
+        read_only_fields = ('approved_count', 'rejected_count', 'pending_count')

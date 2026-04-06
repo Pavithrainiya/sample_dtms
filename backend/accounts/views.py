@@ -40,7 +40,12 @@ class UserListView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        # Only admins should see all users
+        from django.db.models import Count, Case, When, IntegerField
+        # Only admins should see all users with their project performance stats
         if self.request.user.role == 'Admin':
-            return User.objects.all().order_by('-date_joined')
+            return User.objects.all().annotate(
+                approved_count=Count(Case(When(my_submissions__status='Reviewed', then=1), output_field=IntegerField())),
+                rejected_count=Count(Case(When(my_submissions__status='Rejected', then=1), output_field=IntegerField())),
+                pending_count=Count(Case(When(my_submissions__status='Submitted', then=1), output_field=IntegerField())),
+            ).order_by('-date_joined')
         return User.objects.filter(id=self.request.user.id)

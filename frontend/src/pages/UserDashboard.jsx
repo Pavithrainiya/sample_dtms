@@ -11,6 +11,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, 
   Cell, PieChart, Pie, Legend 
 } from 'recharts';
+import MissionAnalyst from '../components/MissionAnalyst';
 
 export default function UserDashboard() {
   const { user, logout } = useContext(AuthContext);
@@ -93,41 +94,41 @@ export default function UserDashboard() {
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-sm border-r flex flex-col hidden lg:flex z-10">
-        <div className="p-6 border-b border-slate-100">
-          <div className="flex items-center gap-2 mb-4">
-             <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
-               <span className="text-white font-black text-xl leading-none">D</span>
-             </div>
-             <span className="text-2xl font-black text-slate-800 tracking-tight">DTMS</span>
+      <aside className="w-64 bg-slate-900 shadow-xl flex flex-col hidden lg:flex z-10 text-slate-100">
+        <div className="p-6 border-b border-slate-800">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <span className="text-white font-black text-xl leading-none">D</span>
+            </div>
+            <span className="text-2xl font-black text-white tracking-tight">DTMS</span>
           </div>
-          <div className="flex items-center gap-3 mt-6">
-            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold border border-blue-200">
-               {user?.name?.charAt(0).toUpperCase()}
+          <div className="flex items-center gap-3 mt-6 bg-slate-800 p-3 rounded-xl border border-slate-700">
+            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold border border-blue-500/30">
+              {user?.name?.charAt(0).toUpperCase()}
             </div>
             <div>
-              <p className="text-sm font-bold text-slate-800 leading-tight">{user?.name}</p>
-              <p className="text-xs text-slate-500">{user?.role}</p>
+              <p className="text-sm font-bold text-white leading-tight">{user?.name}</p>
+              <p className="text-xs text-blue-300">{user?.role}</p>
             </div>
           </div>
         </div>
         <nav className="flex-1 mt-6 px-4 space-y-2">
-          <button onClick={() => setActiveTab('overview')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'overview' ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'}`}>
+          <button onClick={() => setActiveTab('overview')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'overview' ? 'bg-blue-500/10 text-blue-400 shadow-sm border border-blue-500/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'}`}>
             <LayoutDashboard size={18} /> Overview
           </button>
-          <button onClick={() => setActiveTab('assigned')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'assigned' ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'}`}>
+          <button onClick={() => setActiveTab('assigned')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'assigned' ? 'bg-blue-500/10 text-blue-400 shadow-sm border border-blue-500/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'}`}>
             <CheckCircle size={18} /> Assigned Tasks
           </button>
-          <button onClick={() => setActiveTab('completed')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'completed' ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'}`}>
+          <button onClick={() => setActiveTab('completed')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'completed' ? 'bg-blue-500/10 text-blue-400 shadow-sm border border-blue-500/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'}`}>
             <Calendar size={18} /> Completed Tasks
           </button>
-          <Link to="/profile" className="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-700 hover:bg-slate-50 rounded-xl font-bold transition-all mt-4 border border-transparent hover:border-slate-200">
+          <Link to="/profile" className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent`}>
             <Settings size={18} /> Profile & Identity
           </Link>
         </nav>
-        <div className="p-4 border-t bg-slate-50/50">
-          <button onClick={logout} className="w-full text-left px-4 py-2.5 text-slate-600 font-bold hover:bg-white hover:text-red-600 rounded-lg transition-colors border border-transparent hover:border-red-100 hover:shadow-sm flex items-center gap-3">
-            Sign Out
+        <div className="p-4 border-t border-slate-800 bg-slate-950/20">
+          <button onClick={logout} className="w-full text-left px-4 py-3 text-slate-400 font-bold hover:bg-slate-800 hover:text-rose-400 rounded-xl transition-all border border-transparent hover:border-rose-500/30">
+            Logout
           </button>
         </div>
       </aside>
@@ -274,6 +275,7 @@ export default function UserDashboard() {
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
       `}} />
+      <MissionAnalyst />
     </div>
   );
 }
