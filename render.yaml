@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: dtms-backend
+    env: python
+    region: oregon
+    buildCommand: "cd backend && pip install -r requirements.txt && python manage.py migrate"
+    startCommand: "cd backend && gunicorn core.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      - key: EMAIL_BACKEND
+        value: django.core.mail.backends.smtp.EmailBackend
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_USE_TLS
+        value: "True"
+      - key: EMAIL_HOST_USER
+        value: pavijeevi56@gmail.com
+      - key: EMAIL_HOST_PASSWORD
+        value: awbumkecqndtbhqj
+      - key: DEFAULT_FROM_EMAIL
+        value: "DTMS Admin <pavijeevi56@gmail.com>"
